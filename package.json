@@ -1,0 +1,24 @@
+{
+  "name": "mm-summertask-2021-part-server",
+  "version": "1.0.0",
+  "description": "server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sambit-sankalp/MM-SummerTask-2021-Part-Server.git"
+  },
+  "author": "Sambit Sankalp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sambit-sankalp/MM-SummerTask-2021-Part-Server/issues"
+  },
+  "homepage": "https://github.com/sambit-sankalp/MM-SummerTask-2021-Part-Server#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  }
+}
