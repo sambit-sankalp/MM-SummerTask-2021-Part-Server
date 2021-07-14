@@ -1,7 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
-import articles from './data/articles.js'
 import articleRoutes from './Routes/articleRoutes.js'
 import {notFound, errorHandler} from './middleware/errorMiddleware.js'
 
