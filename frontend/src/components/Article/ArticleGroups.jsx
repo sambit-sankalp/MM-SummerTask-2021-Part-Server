@@ -117,18 +117,6 @@ export default function ArticlesGroup(props) {
           <Container maxWidth="lg">
             <Grid container spacing={2}>
               {props.old.map(articleCard)}
-              {/* {props.auth ? ( */}
-              <Fab
-                size="medium"
-                color="secondary"
-                aria-label="add"
-                className={classes.addIcon}
-              >
-                <AddIcon />
-              </Fab>
-              {/* ) : (
-                <div></div>
-              )} */}
             </Grid>
           </Container>
         </React.Fragment>

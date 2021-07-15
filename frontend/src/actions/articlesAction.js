@@ -1,4 +1,4 @@
-import { TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,  LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL } from '../constants/articleConstants'
+import { TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,  LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL, ARTICLE_DETAILS_REQUEST, ARTICLE_DETAILS_SUCCESS, ARTICLE_DETAILS_FAIL } from '../constants/articleConstants'
 import axios from 'axios'
 
 const listArticles = () => async (dispatch) =>{
@@ -14,6 +14,24 @@ const listArticles = () => async (dispatch) =>{
     } catch (error) {
         dispatch({
             type: ARTICLE_LIST_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}
+
+const listArticleDetails = (id) => async (dispatch) =>{
+    try {
+        dispatch({type: ARTICLE_DETAILS_REQUEST})
+
+        const { data } = await axios.get(`/api/article/${id}`)
+
+        dispatch({
+            type: ARTICLE_DETAILS_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: ARTICLE_DETAILS_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         })
     }
@@ -55,4 +73,4 @@ const listLatestArticles = () => async (dispatch) =>{
     }
 }
 
-export { listArticles, listLatestArticles, listTrendingArticles }
+export { listArticles, listLatestArticles, listTrendingArticles, listArticleDetails }

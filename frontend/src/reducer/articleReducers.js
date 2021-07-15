@@ -1,4 +1,4 @@
-import { TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL} from '../constants/articleConstants'
+import { TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL, ARTICLE_DETAILS_REQUEST, ARTICLE_DETAILS_SUCCESS, ARTICLE_DETAILS_FAIL} from '../constants/articleConstants'
 
 
 export const articleListReducer = (state = { articles:[] }, action) => {
@@ -15,6 +15,30 @@ export const articleListReducer = (state = { articles:[] }, action) => {
 
             }
         case ARTICLE_LIST_FAIL:
+             return {
+                loading: false,
+                error: action.payload
+    
+            }
+        default:
+            return state
+    }
+}
+
+export const articleDetailsReducer = (state = { article: { reviews: [] } }, action) => {
+    switch(action.type){
+        case ARTICLE_DETAILS_REQUEST: 
+            return {
+                loading: true,
+                ...state
+            }
+        case ARTICLE_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                article: action.payload
+
+            }
+        case ARTICLE_DETAILS_FAIL:
              return {
                 loading: false,
                 error: action.payload
