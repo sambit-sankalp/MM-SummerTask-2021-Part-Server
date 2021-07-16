@@ -1,138 +1,96 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
+import React, {useState, useEffect} from "react";
+import { useDispatch, useSelector} from 'react-redux';
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import Input from "@material-ui/core/Input";
-import FilledInput from "@material-ui/core/FilledInput";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Box from "@material-ui/core/Box";
+import SignIn from "./SignInSection";
+import SignUp from "./SignUpSection";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+};
+
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  margin: {
-    margin: theme.spacing(1)
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3)
-  },
-  textField: {
-    width: "50ch"
-  },
-  button: {
-    "& > *": {
-      margin: theme.spacing(2)
-    }
+    backgroundColor: theme.palette.background.paper,
+    width: 500
   }
 }));
 
-export default function SignIn() {
+export default function FullWidthTabs() {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    amount: "",
-    password: "",
-    email: "",
-    emailRange: "",
-    showPassword: false
-  });
+  const theme = useTheme();
+  const [value, setValue] = React.useState(0);
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+  const handleChangeIndex = (index) => {
+    setValue(index);
   };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
   return (
     <div className={classes.root}>
-      <Grid
-        container
-        direction="column"
-        justify="space-evenly"
-        alignItems="center"
+      <AppBar position="static" color="default">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="fullWidth"
+          aria-label="full width tabs example"
+        >
+          <Tab label="Sign In" {...a11yProps(0)} />
+          <Tab label="Sign Up" {...a11yProps(1)} />
+        </Tabs>
+      </AppBar>
+      <SwipeableViews
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        index={value}
+        onChangeIndex={handleChangeIndex}
       >
-        <Typography className={classes.textField} paragraph>
-          If you're an admin, then Sign In otherwise return to the Home by
-          clicking the Home Button below.
-        </Typography>
-        <div>
-          <FormControl
-            fullWidth
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-          >
-            <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-email"
-              value={values.weight}
-              onChange={handleChange("email")}
-              endAdornment={
-                <InputAdornment position="end">@gmail.com</InputAdornment>
-              }
-              aria-describedby="outlined-email-helper-text"
-              inputProps={{
-                "aria-label": "email"
-              }}
-              labelWidth={40}
-            />
-          </FormControl>
-        </div>
-        <div>
-          <FormControl
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-            fullWidth
-          >
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              value={values.password}
-              onChange={handleChange("password")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              labelWidth={70}
-            />
-          </FormControl>
-        </div>
-        <div className={classes.button}>
-          <Button variant="contained" color="primary">
-            Home
-          </Button>
-          <Button variant="contained" color="primary">
-            Sign In
-          </Button>
-        </div>
-      </Grid>
+        <TabPanel value={value} index={0} dir={theme.direction}>
+          <SignIn />
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <SignUp />
+        </TabPanel>
+      </SwipeableViews>
     </div>
   );
 }

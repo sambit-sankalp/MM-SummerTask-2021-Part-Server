@@ -5,6 +5,7 @@ import Home from './Home/Newsbody';
 import About from './About/AboutPage';
 import Article from "./Article/ArticlesPage.jsx"; 
 import SignIn from "./SignIn/SignIn";
+import SignUp from "./SignIn/SignUpSection"
   
 function Body() {
   return (
@@ -15,7 +16,8 @@ function Body() {
         <Route path='/articles' component={Article} />
         <Route path='/about' component={About} />
         <Route path='/signin' component={SignIn} />
-        </Switch>
+        <Route path='/register' component={SignUp} />
+      </Switch>
     </Router>
   );
 }
