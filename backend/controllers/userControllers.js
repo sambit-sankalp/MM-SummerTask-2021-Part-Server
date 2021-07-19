@@ -59,7 +59,6 @@ const registerUser = asyncHandler(async(req, res) => {
 const getUser = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id)
 
-    const user =  await User.findById(req.user._id)
 
     if(user){
         res.json({
@@ -80,7 +79,6 @@ const getUser = asyncHandler(async(req, res) => {
 const updateUser = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id)
 
-    const user =  await User.findById(req.user._id)
 
     if(user){
         user.name = req.body.name || user.name
@@ -108,4 +106,66 @@ const updateUser = asyncHandler(async(req, res) => {
 
 })
 
-export { authUser, registerUser , getUser , updateUser }
+const getAllUsers = asyncHandler(async(req, res) => {
+    const users = await User.find({})
+
+    res.json(users)
+
+})
+
+const deleteUser = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.params.id)
+
+    if(user)
+    {
+        await user.remove()
+        res.json({ message: "User removed"})
+    }else{
+        res.status(404)
+        throw new Error("User not found")
+    }
+    res.json(users)
+})
+
+const getUserById = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.params.id).select('-password')
+
+    if(user){
+        res.json(user)
+    }
+    else 
+    {
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+})
+
+const updateUserById = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.params.id)
+
+
+    if(user){
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.isAdmin = req.body.isAdmin 
+
+        const updatedUser = await User.save()
+
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            
+        })
+    }
+    else 
+    {
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+})
+
+export { authUser, registerUser , getUser , updateUser , getAllUsers, deleteUser, getUserById, updateUserById }

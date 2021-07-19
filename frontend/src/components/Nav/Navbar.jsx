@@ -79,8 +79,29 @@ const Navbar = () => {
         <NavBtn>
             <NavBtnLink to='/signin'>Sign In</NavBtnLink>
         </NavBtn>
-}
-        
+      }
+      {userInfo && userInfo.isAdmin && (
+        <div>
+          <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
+            Users
+          </Button>
+          <Menu
+            id="fade-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Fade}
+          >
+            <MenuItem onClick={handleClose}>
+              <Link to="/admin/userlist"> Users</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to="/admin/productlist"> Products</Link>
+            </MenuItem>
+          </Menu>
+         </div>
+      )}  
       </Nav>
     </>
   );

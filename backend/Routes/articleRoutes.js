@@ -1,13 +1,17 @@
 import express from 'express'
 const router = express.Router()
-import { getArticleById, getArticles, getLatestArticles, getTrendingArticles } from "../controllers/articleControllers.js"
+import { createArticle, deleteArticle, getArticleById, getArticles, getLatestArticles, getTrendingArticles, updateArticle } from "../controllers/articleControllers.js"
+import { admin, protect } from "../middleware/authMiddleware.js"
+
 
 router.route('/all').get(getArticles)
+
+router.post('/',admin, protect, createArticle)
 
 router.route('/trending').get(getTrendingArticles)
 
 router.route('/latest').get(getLatestArticles)
 
-router.route('/:id').get(getArticleById)
+router.route('/:id').get(getArticleById).delete(protect, admin, deleteArticle).put(protect, admin, updateArticle)
 
 export default router
