@@ -1,11 +1,11 @@
-import { TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,  LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL, ARTICLE_DETAILS_REQUEST, ARTICLE_DETAILS_SUCCESS, ARTICLE_DETAILS_FAIL, ARTICLE_DELETE_REQUEST, ARTICLE_DELETE_SUCCESS, ARTICLE_DELETE_FAIL, ARTICLE_UPDATE_REQUEST, ARTICLE_UPDATE_SUCCESS, ARTICLE_UPDATE_FAIL } from '../constants/articleConstants'
+import { TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,  LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL, ARTICLE_DETAILS_REQUEST, ARTICLE_DETAILS_SUCCESS, ARTICLE_DETAILS_FAIL, ARTICLE_DELETE_REQUEST, ARTICLE_DELETE_SUCCESS, ARTICLE_DELETE_FAIL, ARTICLE_UPDATE_REQUEST, ARTICLE_UPDATE_SUCCESS, ARTICLE_UPDATE_FAIL, ARTICLE_CREATE_COMMENT_REQUEST, ARTICLE_CREATE_COMMENT_SUCCESS, ARTICLE_CREATE_COMMENT_FAIL } from '../constants/articleConstants'
 import axios from 'axios'
 
-const listArticles = () => async (dispatch) =>{
+const listArticles = (keyword= '') => async (dispatch) =>{
     try {
         dispatch({type: ARTICLE_LIST_REQUEST})
 
-        const { data } = await axios.get('/api/article/all')
+        const { data } = await axios.get(`/api/article/all?keyword=${keyword}`)
 
         dispatch({
             type: ARTICLE_LIST_SUCCESS,
@@ -151,4 +151,30 @@ const updateArticle = (article) => async (dispatch,getState) =>{
     }
 }
 
-export { listArticles, listLatestArticles, listTrendingArticles, listArticleDetails, deleteArticle, createArticle, updateArticle }
+const createArticleReview = (articleId, review) => async (dispatch,getState) =>{
+    try {
+        dispatch({type: ARTICLE_CREATE_COMMENT_REQUEST})
+
+        const { userLogin: {userInfo}} =getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${userInfo.token}`
+            }
+        }
+
+        await axios.post(`/api/article/${articleId}/reviews`, review , config)
+
+        dispatch({
+            type: ARTICLE_CREATE_COMMENT_SUCCESS
+        })
+    } catch (error) {
+        dispatch({
+            type: ARTICLE_CREATE_COMMENT_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}
+
+export { listArticles, listLatestArticles, listTrendingArticles, listArticleDetails, deleteArticle, createArticle, updateArticle, createArticleReview }

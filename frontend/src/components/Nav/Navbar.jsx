@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { Route } from 'react-router-dom';
 import {
   Nav,
   NavLink,
@@ -11,13 +12,17 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
+import SearchBox from './SearchBox';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import { logout } from '../../actions/userAction';
 
+
   
-const Navbar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const Navbar = ({ history }) => {
+  
+  const [anchorEl, setAnchorEl] = useState(null);
+  
   const open = Boolean(anchorEl);
 
   const dispatch = useDispatch()
@@ -38,6 +43,7 @@ const Navbar = () => {
     dispatch(logout())
   }
 
+
   return (
     <>
       <Nav>
@@ -53,6 +59,9 @@ const Navbar = () => {
           <NavLink to='/about' activeStyle>
             About
           </NavLink>
+          <Route render={({ history }) => (
+            <SearchBox history={history} />
+          )} />
         </NavMenu>
         {userInfo? (
           <div>

@@ -6,19 +6,36 @@ const reviewSchema = mongoose.Schema({
         required: true,
         default: "Anonymous"
     },
-    like: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    dislike: {
-        type: Number,
-        required: true,
-        default: 0
-    },
     comment: {
         type: String,
         required: true
+    },
+    numLike: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    liked: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    
+},{
+    timestamps: true
+})
+
+const likeSchema = mongoose.Schema({
+   
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     },
     
 },{
@@ -57,6 +74,12 @@ const articleSchema = mongoose.Schema({
         required: true,
         default: 0
     },
+    numReviews: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    likes: [likeSchema],
     reviews: [reviewSchema],
 },{
     timestamps: true

@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Articles(props) {
+export default function Articles({ match }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const keyword = match.params.keyword
 
   const dispatch = useDispatch()
 
@@ -32,8 +33,8 @@ export default function Articles(props) {
   const {loading, error, articles } = articleList
 
   useEffect(() => {
-    dispatch(listArticles())
-  }, [dispatch])
+    dispatch(listArticles(keyword))
+  }, [dispatch, keyword])
 
   function compare(a,b){
     return (a._id > b._id);

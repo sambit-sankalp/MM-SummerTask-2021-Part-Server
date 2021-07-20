@@ -2,13 +2,21 @@ import asyncHandler from 'express-async-handler'
 import Article from "../models/articlemodel.js"
 
 const getArticles = asyncHandler(async(req, res) => {
-    const articles = await Article.find({})
+    const keyword = req.query.keyword ? {
+        title: {
+            $regex: req.query.keyword,
+            $options: 'i'
+        }
+    }: {}
+
+    const articles = await Article.find({...keyword})
     res.json(articles)
 })
 
 const getArticleById = asyncHandler(async(req, res) => {
     const article = await Article.findById(req.params.id)
     article.views++;
+    await article.save()
     
     if(article) {
         res.json(article)
@@ -65,6 +73,52 @@ const updateArticle = asyncHandler(async(req, res) => {
     }
 })
 
+const createArticleReview = asyncHandler(async(req, res) => {
+    const { liked , comment } = req.body
+
+    const article = await Article.findById(req.params.id)
+
+    if (article) {
+        const alreadyCommented = article.reviews.find(r => r.user.toString() === req.user._id.toString())
+
+        const alreadyLiked = article.reviews.find(r => r.user.toString() === req.user._id.toString())
+
+        if(alreadyCommented)
+        {
+            res.status(400)
+            throw new Error("Already commented")
+        }
+
+
+        if(alreadyLiked)
+        {
+            numLike = article.reviews.numLike--
+        }
+        else{
+            numLike = article.reviews.numLike++
+        }
+
+        const review = {
+            name: req.user.name,
+            comment,
+            numLike,
+            liked
+        }
+
+        article.reviews.push(review)
+
+        article.numReviews = article.reviews.length
+
+        await article.save()
+        res.status(201).json({message: "Reviewed Successfully"})
+    }else{
+        res.status(404)
+        throw new Error("Article not Found")
+    }
+})
+
+
+
 const getLatestArticles= asyncHandler(async(req, res) => {
     const articles = await Article.find().sort({_id : -1}).limit(4)
     
@@ -87,4 +141,4 @@ const getTrendingArticles= asyncHandler(async(req, res) => {
     }
 })
 
-export {getArticles , getArticleById , getLatestArticles , getTrendingArticles, deleteArticle , updateArticle, createArticle}
+export {getArticles , getArticleById , getLatestArticles , getTrendingArticles, deleteArticle , updateArticle, createArticle, createArticleReview}

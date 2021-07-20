@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import EditorialCard from "../ReusableCards/EditorialCard";
 import theme from "../theme";
-import { listLatestArticles } from '../../actions/articlesAction';
+import { listLatestArticles, listArticles  } from '../../actions/articlesAction';
 
 
 function articleCard(trendingArticle) {
@@ -26,7 +26,8 @@ function articleCard(trendingArticle) {
   );
 }
 
-export default function Latest() {
+export default function Latest({ match }) {
+  const keyword = match.params.keyword
 
   const dispatch = useDispatch()
 
@@ -35,7 +36,8 @@ export default function Latest() {
 
   useEffect(() => {
     dispatch(listLatestArticles())
-  }, [dispatch])
+    dispatch(listArticles(keyword))
+  }, [dispatch, keyword])
 
   return (
     <React.Fragment>

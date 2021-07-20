@@ -24,7 +24,9 @@ function Body() {
         <Route path='/admin/userlist' component={UserList} />
         <Route path='/admin/articlelist' component={ArticleList} />
         <Route path='/admin/user/:id/edit' component={UserEditScreen} />
-        <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
+        <Route path='/admin/article/:id/edit' component={ProductEditScreen} />
+        <Route path='/search/:keyword' component={Home} />
+
       </Switch>
     </Router>
   );

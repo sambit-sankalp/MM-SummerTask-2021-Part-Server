@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import theme from "../theme";
 import ArticleCard from "../ReusableCards/Articlecard";
-import { listTrendingArticles } from '../../actions/articlesAction';
+import { listTrendingArticles, listArticles } from '../../actions/articlesAction';
 
 function articleCard(trendingArticle) {
   return (
@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Articles() {
-
+export default function Articles({ match }) {
+  const keyword = match.params.keyword
   const dispatch = useDispatch()
 
   const articleList = useSelector(state => state.trendingArticleList)
@@ -45,7 +45,8 @@ export default function Articles() {
 
   useEffect(() => {
     dispatch(listTrendingArticles())
-  }, [dispatch])
+    dispatch(listArticles(keyword))
+  }, [dispatch, keyword])
 
   
 

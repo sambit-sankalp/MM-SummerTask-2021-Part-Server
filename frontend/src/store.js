@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools} from 'redux-devtools-extension'
-import { trendingArticleListReducer, latestArticleListReducer, articleListReducer, articleDetailsReducer, articleDeleteReducer, articleCreateReducer, articleUpdateReducer } from './reducer/articleReducers'
+import { trendingArticleListReducer, latestArticleListReducer, articleListReducer, articleDetailsReducer, articleDeleteReducer, articleCreateReducer, articleUpdateReducer, articleReviewCreateReducer } from './reducer/articleReducers'
 import { userDeleteReducer, userDetailsReducer, userListReducer, userLoginReducer, userRegisterReducer, userupdateProfileReducer, userUpdateReducer } from './reducer/userReducers.js'
 
 const reducer = combineReducers({
@@ -11,6 +11,7 @@ const reducer = combineReducers({
     articleDetails: articleDetailsReducer,
     articleDelete: articleDeleteReducer,
     createArticle: articleCreateReducer,
+    articleCommentCreate: articleReviewCreateReducer,
     articleUpdate: articleUpdateReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,

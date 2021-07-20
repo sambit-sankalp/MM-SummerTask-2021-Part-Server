@@ -107,7 +107,7 @@ const uploadFileHandler = async(e) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch({ _id: articleId , title , imageUrl, category, desc, writer})
+    dispatch(updateArticle({ _id: articleId , title , imageUrl, category, desc, writer}))
     
   }
 
@@ -119,7 +119,7 @@ const uploadFileHandler = async(e) => {
           <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg">
-            <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.root} onSubmit={submitHandler} noValidate autoComplete="off">
                 <ThemeProvider theme={theme}>
                   <Typography component="div" align="left" variant="h4">
                     Your Article
@@ -246,7 +246,7 @@ const uploadFileHandler = async(e) => {
                       alignItems="center"
                       className={classes.button}
                     >
-                      <Button variant="contained" color="primary">
+                      <Button variant="contained" color="primary" type="submit">
                         Update
                       </Button>
                     </Grid>
