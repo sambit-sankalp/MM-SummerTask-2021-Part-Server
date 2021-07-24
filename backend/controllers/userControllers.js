@@ -85,9 +85,9 @@ const updateUser = asyncHandler(async(req, res) => {
         user.email = req.body.email || user.email
         if(req.body.password){
             user.password = req.body.password
-        }
+        };
 
-        const updatedUser = await User.save()
+        const updatedUser = await user.save()
 
         res.json({
             _id: updatedUser._id,
@@ -150,7 +150,7 @@ const updateUserById = asyncHandler(async(req, res) => {
         user.email = req.body.email || user.email
         user.isAdmin = req.body.isAdmin 
 
-        const updatedUser = await User.save()
+        const updatedUser = await user.save()
 
         res.json({
             _id: updatedUser._id,

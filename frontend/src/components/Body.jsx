@@ -10,6 +10,7 @@ import UserList from './lists/usersList'
 import ArticleList from './lists/articleList'
 import UserEditScreen from './EditScreens/userEditScreens';
 import ProductEditScreen from './EditScreens/articleEditScreen'
+import FullArticle from './FullArticle/FullArticlePage'
   
 function Body() {
   return (
@@ -18,6 +19,7 @@ function Body() {
       <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/articles' component={Article} />
+        <Route path='/article/:id' component={FullArticle} />
         <Route path='/about' component={About} />
         <Route path='/signin' component={SignIn} />
         <Route path='/register' component={SignUp} />
@@ -26,7 +28,6 @@ function Body() {
         <Route path='/admin/user/:id/edit' component={UserEditScreen} />
         <Route path='/admin/article/:id/edit' component={ProductEditScreen} />
         <Route path='/search/:keyword' component={Home} />
-
       </Switch>
     </Router>
   );

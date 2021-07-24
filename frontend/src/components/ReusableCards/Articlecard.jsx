@@ -9,21 +9,20 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
-import photo from "../assets/Academics.png";
+
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-    textAlign: "left"
+    textAlign: "left",
   },
   media: {
-    height: 140
+    height: 140,
   },
   title: {
     fontSize: "17px",
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 
 export default function ArticleCard(props) {
@@ -59,9 +58,11 @@ export default function ArticleCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+        <Link to={`/article/${props.id}`}>
+          <Button size="small" color="primary">
+            Learn More
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

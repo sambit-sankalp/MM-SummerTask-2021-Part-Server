@@ -42,9 +42,9 @@ const createArticle = asyncHandler(async(req, res) => {
     const article = new Article({
         title: 'Demo',
         user: req.user._id,
-        imageUrl: '',
+        imageUrl: 'https://res.cloudinary.com/sambitsankalp/image/upload/v1627048522/MM%20tasks/Monday_Morning_2_gw5kzs.jpg',
         writer: 'Anonymous',
-        category: 'Sample',
+        category: 'Science and Technology',
         views: 0,
         desc: 'Default'
     })
@@ -79,44 +79,47 @@ const createArticleReview = asyncHandler(async(req, res) => {
     const article = await Article.findById(req.params.id)
 
     if (article) {
-        const alreadyCommented = article.reviews.find(r => r.user.toString() === req.user._id.toString())
+        const reviewedArticle = article.reviews.find(r => r.user.toString() === req.user._id.toString())
 
-        const alreadyLiked = article.reviews.find(r => r.user.toString() === req.user._id.toString())
-
-        if(alreadyCommented)
+        if(reviewedArticle)
         {
-            res.status(400)
-            throw new Error("Already commented")
-        }
+            if(comment)
+            {
+                reviewedArticle.reviews.comment = comment
+            }
+            if(liked)
+            {
+                reviewedArticle.reviews.liked = liked
+            }
+            reviewedArticle.numLike = liked ? reviewedArticle.numLike++ : reviewedArticle.numLike--
 
-
-        if(alreadyLiked)
-        {
-            numLike = article.reviews.numLike--
+            await reviewedArticle.save()
+            res.status(201).json({message: "Reviewed Successfully"})
         }
         else{
-            numLike = article.reviews.numLike++
+            const review = {
+                name: req.user.name,
+                comment,
+                liked,
+                user: req.user._id
+            }
+    
+            article.reviews.push(review)
+    
+            article.numReviews = article.reviews.length
+    
+            article.numLike = liked && article.numLike++
+    
+            await article.save()
+            res.status(201).json({message: "Reviewed Successfully"})
         }
 
-        const review = {
-            name: req.user.name,
-            comment,
-            numLike,
-            liked
-        }
 
-        article.reviews.push(review)
-
-        article.numReviews = article.reviews.length
-
-        await article.save()
-        res.status(201).json({message: "Reviewed Successfully"})
     }else{
         res.status(404)
         throw new Error("Article not Found")
     }
 })
-
 
 
 const getLatestArticles= asyncHandler(async(req, res) => {

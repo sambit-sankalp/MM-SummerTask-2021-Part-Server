@@ -10,7 +10,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
 import TextField from "@material-ui/core/TextField";
-import theme from "./theme";
+import theme from "../theme";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { listArticleDetails, updateArticle } from '../../actions/articlesAction';

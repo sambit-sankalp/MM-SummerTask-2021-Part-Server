@@ -5,11 +5,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-import Article from "./Article";
-import Squiggles from "./squiggles";
-import Editorial from "./editorials";
-import Query from "./query";
-import Latest from "./Latest";
+import Squiggles from "../SideBar/squiggles";
+import Editorial from "../SideBar/editorials";
+import Query from "../SideBar/query";
 import FullArticle from "./FullArticle";
 
 const useStyles = makeStyles((theme) => ({

@@ -7,16 +7,13 @@ import userRoutes from './Routes/userRoutes.js'
 import {notFound, errorHandler} from './middleware/errorMiddleware.js'
 import uploadRoutes from './Routes/uploadRoutes.js'
 
-
 dotenv.config()
 
 connectDB()
 
-app.use(express.json())
-
 const app = express()
 
-
+app.use(express.json())
 
 app.get('/', (req,res)=>{
     res.send("API is running...")
@@ -32,7 +29,6 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 app.use(notFound)
 
 app.use(errorHandler)
-
 
 const PORT = process.env.PORT || 5000
 

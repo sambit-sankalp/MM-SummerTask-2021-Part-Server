@@ -11,29 +11,29 @@ import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
-    maxWidth: 500
+    maxWidth: 500,
   },
   image: {
     width: 128,
-    height: 128
+    height: 128,
   },
   img: {
     margin: "auto",
     display: "block",
     maxWidth: "100%",
-    maxHeight: "100%"
+    maxHeight: "100%",
   },
   time: {
-    marginLeft: "3%"
+    marginLeft: "3%",
   },
   title: {
     fontSize: "17px",
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 }));
 
 export default function EditorialCard(props) {
@@ -70,9 +70,11 @@ export default function EditorialCard(props) {
               </Grid>
               <Grid item>
                 <CardActions>
-                  <Button size="small" color="primary">
-                    Learn More
-                  </Button>
+                  <Link to={`/article/${props.id}`}>
+                    <Button size="small" color="primary">
+                      Learn More
+                    </Button>
+                  </Link>
                 </CardActions>
               </Grid>
             </Grid>

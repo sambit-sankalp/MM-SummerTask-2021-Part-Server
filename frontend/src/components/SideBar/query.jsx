@@ -41,7 +41,7 @@ export default function ArticleCard() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={require("../assets/aaq4.jpg")}
+          image="https://res.cloudinary.com/sambitsankalp/image/upload/v1627048525/MM%20tasks/Ask_a_Question_vf4vjj.jpg"
           title="Contemplative Reptile"
         />
         <CardContent>

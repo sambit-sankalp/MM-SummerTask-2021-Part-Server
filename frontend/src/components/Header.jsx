@@ -10,7 +10,7 @@ function Header() {
         alignItems: "center"
       }}
     >
-      <img src={logo} alt="Logo" />
+      <img src="https://res.cloudinary.com/sambitsankalp/image/upload/v1627048522/MM%20tasks/Logo_aveyxh.png" alt="Logo" />
     </div>
   );
 }

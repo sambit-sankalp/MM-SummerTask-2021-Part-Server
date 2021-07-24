@@ -17,8 +17,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
-import { listArticles } from '../../actions/articlesAction';
-import { deleteArticle , listArticles , createArticle } from '../../../../backend/controllers/articleControllers';
+import { deleteArticle , listArticles , createAArticle } from '../../actions/articlesAction';
 import { ARTICLE_CREATE_RESET } from '../../constants/articleConstants'
 
 
@@ -40,7 +39,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=> ({
   table: {
     minWidth: 700,
   },
@@ -48,7 +47,7 @@ const useStyles = makeStyles({
     position: 'absolute',
     right: theme.spacing(2)
   }
-});
+}));
 
 export default function ArticleList({ history, match }) {
   const classes = useStyles();
@@ -91,15 +90,15 @@ export default function ArticleList({ history, match }) {
       } 
   }
 
-  const createProductHandler =() => {
-    dispatch(createArticle())
+  const createArticleHandler =() => {
+    dispatch(createAArticle())
   }
 
   return (
     <div>
         <div>
           <h1>Users</h1>
-          <Fab color="primary" aria-label="add" className = {classes.fab} onClick={createProductHandler}>
+          <Fab color="primary" aria-label="add" className = {classes.fab} onClick={createArticleHandler}>
             <AddIcon />
           </Fab>
         </div>

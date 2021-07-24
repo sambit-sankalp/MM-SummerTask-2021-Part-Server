@@ -26,7 +26,6 @@ const Navbar = ({ history }) => {
   const open = Boolean(anchorEl);
 
   const dispatch = useDispatch()
-  
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

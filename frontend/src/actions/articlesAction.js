@@ -98,7 +98,7 @@ const deleteArticle = (id) => async (dispatch,getState) =>{
     }
 }
 
-const createArticle = () => async (dispatch,getState) =>{
+const createAArticle = () => async (dispatch,getState) =>{
     try {
         dispatch({type: ARTICLE_CREATE_REQUEST})
 
@@ -132,7 +132,7 @@ const updateArticle = (article) => async (dispatch,getState) =>{
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
+                'content-type': 'application/json',
                 Authorization : `Bearer ${userInfo.token}`
             }
         }
@@ -159,7 +159,7 @@ const createArticleReview = (articleId, review) => async (dispatch,getState) =>{
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
+                'content-type': 'application/json',
                 Authorization : `Bearer ${userInfo.token}`
             }
         }
@@ -177,4 +177,4 @@ const createArticleReview = (articleId, review) => async (dispatch,getState) =>{
     }
 }
 
-export { listArticles, listLatestArticles, listTrendingArticles, listArticleDetails, deleteArticle, createArticle, updateArticle, createArticleReview }
+export { listArticles, listLatestArticles, listTrendingArticles, listArticleDetails, deleteArticle, createAArticle, updateArticle, createArticleReview }
