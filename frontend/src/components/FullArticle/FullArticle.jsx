@@ -13,6 +13,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import {listArticleDetails, createArticleReview} from "../../actions/articlesAction";
 import {ARTICLE_CREATE_COMMENT_RESET} from '../../constants/articleConstants'
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FullArticle({ match }) {
+const FullArticle = () => {
+  const { id } = useParams()
   const [comment, setComment] = useState('')
   const [like, setLike] = useState(false)
   const dispatch = useDispatch()
@@ -47,18 +49,18 @@ export default function FullArticle({ match }) {
       setComment('')
       dispatch({type: ARTICLE_CREATE_COMMENT_RESET})
     }
-    dispatch(listArticleDetails(match.params.id))
-  }, [dispatch ,match, success])
+    dispatch(listArticleDetails(id))
+  }, [dispatch, id, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(createArticleReview(match.params.id, { comment}))
+    dispatch(createArticleReview(id, {comment}))
     
   }
 
   const submitButtonHandler = (e) => {
     e.preventDefault()
-    dispatch(createArticleReview(match.params.id, {like}))
+    dispatch(createArticleReview(id, {like}))
     
   }
 
@@ -203,3 +205,5 @@ export default function FullArticle({ match }) {
     </React.Fragment>
   );
 }
+
+export default FullArticle

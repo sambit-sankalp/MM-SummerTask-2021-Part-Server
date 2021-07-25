@@ -14,7 +14,7 @@ import { admin, protect } from "../middleware/authMiddleware.js";
 
 router.route("/all").get(getArticles);
 
-router.route("/").post(admin, protect, createArticle);
+router.route("/").post(protect, admin, createArticle);
 
 router.route("/trending").get(getTrendingArticles);
 

@@ -20,7 +20,7 @@ const reducer = combineReducers({
     userList: userListReducer,
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer
-})
+});
 
 const userInfoFromStorge = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 

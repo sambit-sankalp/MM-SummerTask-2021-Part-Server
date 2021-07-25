@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -38,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn({ location, history }) {
+const SignIn = () => {
+  const location = useLocation();
+  const history = useHistory();
 
   const classes = useStyles();
   const [values, setValues] = useState({
@@ -158,3 +160,5 @@ export default function SignIn({ location, history }) {
     </form>
   );
 }
+
+export default SignIn

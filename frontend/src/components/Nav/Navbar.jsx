@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import {
   Nav,
   NavLink,
@@ -19,8 +19,8 @@ import { logout } from '../../actions/userAction';
 
 
   
-const Navbar = ({ history }) => {
-  
+const Navbar = () => {
+  let history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   
   const open = Boolean(anchorEl);
@@ -58,7 +58,7 @@ const Navbar = ({ history }) => {
           <NavLink to='/about' activeStyle>
             About
           </NavLink>
-          <Route render={({ history }) => (
+          <Route render={() => (
             <SearchBox history={history} />
           )} />
         </NavMenu>

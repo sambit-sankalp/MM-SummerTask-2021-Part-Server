@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -42,8 +42,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserList({ history }) {
+const UserList = () => {
   const classes = useStyles();
+  let history = useHistory();
 
   const dispatch = useDispatch()
 
@@ -120,4 +121,4 @@ export default function UserList({ history }) {
   );
 }
 
-
+export default UserList

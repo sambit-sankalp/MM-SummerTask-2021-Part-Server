@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Button from '@material-ui/core/Button';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,7 +81,7 @@ const SearchBox = ({ history }) => {
                 onChange={(e) => setKeyword(e.target.value)}
               />
               <Button variant="contained" color="primary" type="submit">
-                Submit
+                Search
               </Button>
             </form>
         </Toolbar>

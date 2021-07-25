@@ -13,6 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { getUserDetails, updateUserProfile } from '../../actions/userAction';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignUp({ location, history }) {
+const ProfileScreen = () => {
+  let history = useHistory();
   const classes = useStyles();
   const [message, setMessage] = useState(null)
   const [values, setValues] = React.useState({
@@ -224,3 +226,5 @@ export default function SignUp({ location, history }) {
     </form>
   );
 }
+
+export default ProfileScreen

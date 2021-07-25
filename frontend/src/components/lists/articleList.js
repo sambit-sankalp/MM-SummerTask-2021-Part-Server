@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -49,8 +49,9 @@ const useStyles = makeStyles((theme)=> ({
   }
 }));
 
-export default function ArticleList({ history, match }) {
+const ArticleList = () => {
   const classes = useStyles();
+  let history = useHistory();
 
   const dispatch = useDispatch()
 
@@ -149,4 +150,4 @@ export default function ArticleList({ history, match }) {
   );
 }
 
-
+export default ArticleList

@@ -7,7 +7,6 @@ import theme from "../theme";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Article from "../Article/Article";
 import Squiggles from "../SideBar/squiggles";
 import Editorial from "../SideBar/editorials";
 import Query from "../SideBar/query";

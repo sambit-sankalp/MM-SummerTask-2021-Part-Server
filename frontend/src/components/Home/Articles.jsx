@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import theme from "../theme";
 import ArticleCard from "../ReusableCards/Articlecard";
 import { listTrendingArticles, listArticles } from '../../actions/articlesAction';
+import { useParams } from "react-router-dom";
 
 function articleCard(trendingArticle) {
   return (
@@ -36,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Articles({ match }) {
-  const keyword = match.params.keyword
+const Articles = () => {
+  const { keyword }= useParams();
   const dispatch = useDispatch()
 
   const articleList = useSelector(state => state.trendingArticleList)
@@ -77,3 +78,5 @@ export default function Articles({ match }) {
     </React.Fragment>
   );
 }
+
+export default Articles

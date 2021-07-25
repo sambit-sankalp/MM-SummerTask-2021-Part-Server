@@ -6,11 +6,11 @@ import Container from "@material-ui/core/Container";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import EditorialCard from "../ReusableCards/EditorialCard";
 import theme from "../theme";
 import { listLatestArticles, listArticles  } from '../../actions/articlesAction';
+import { useParams } from "react-router-dom";
 
 
 function articleCard(trendingArticle) {
@@ -26,8 +26,9 @@ function articleCard(trendingArticle) {
   );
 }
 
-export default function Latest({ match }) {
-  const keyword = match.params.keyword
+
+const Latest = () => {
+  const {keyword} = useParams()
 
   const dispatch = useDispatch()
 
@@ -66,3 +67,5 @@ export default function Latest({ match }) {
     </React.Fragment>
   );
 }
+
+export default Latest

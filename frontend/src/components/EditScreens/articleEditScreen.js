@@ -15,6 +15,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { listArticleDetails, updateArticle } from '../../actions/articlesAction';
 import {ARTICLE_UPDATE_RESET} from '../../constants/articleConstants'
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,8 +33,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function EditArticles({match, history}) {
-  const articleId = match.params.id
+const EditArticles = () => {
+  const {articleId} = useParams()
+  let history = useHistory()
 
   const classes = useStyles();
 
@@ -261,3 +263,5 @@ const uploadFileHandler = async(e) => {
     </React.Fragment>
   );
 }
+
+export default EditArticles;

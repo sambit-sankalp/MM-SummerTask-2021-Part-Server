@@ -10,7 +10,7 @@ import Alert from '@material-ui/lab/Alert';
 import theme from "../theme";
 import ArticleGroups from "./ArticleGroups";
 import { listArticles } from "../../actions/articlesAction";
-
+import { useParams } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Articles({ match }) {
+export default function Articles() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const keyword = match.params.keyword
+  const {keyword} = useParams();
 
   const dispatch = useDispatch()
 
@@ -57,8 +57,6 @@ export default function Articles({ match }) {
   scienceAndSociety.sort(compare)
   local.sort(compare)
   miscellaneous.sort(compare)
-
-  
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

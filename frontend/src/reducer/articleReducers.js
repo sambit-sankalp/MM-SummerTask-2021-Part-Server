@@ -18,7 +18,6 @@ export const articleListReducer = (state = { articles:[] }, action) => {
              return {
                 loading: false,
                 error: action.payload
-    
             }
         default:
             return state

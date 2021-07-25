@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector} from 'react-redux';
 import clsx from "clsx";
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -40,8 +40,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function UserEditScreen({ match , history }) {
-    const userId = match.params.id
+const UserEditScreen = () => {
+    const {userId} = useParams();
+    let history = useHistory();
     const classes = useStyles();
     const [message, setMessage] = useState(null)
     const [values, setValues] = React.useState({
@@ -172,3 +173,5 @@ export default function UserEditScreen({ match , history }) {
     </form>
   );
 }
+
+export default UserEditScreen;

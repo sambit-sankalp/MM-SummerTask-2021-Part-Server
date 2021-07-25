@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import clsx from "clsx";
+import { useDispatch, useSelector} from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -13,6 +14,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { register } from '../../actions/userAction'
+import {Link, useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,10 +38,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignUp({ location, history }) {
+const SignUp = () => {
+  const location = useLocation();
+  const history = useHistory();
+
   const classes = useStyles();
   const [message, setMessage] = useState(null)
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     name: "",
     amount: "",
     password: "",
@@ -214,3 +219,5 @@ export default function SignUp({ location, history }) {
     </form>
   );
 }
+
+export default SignUp
