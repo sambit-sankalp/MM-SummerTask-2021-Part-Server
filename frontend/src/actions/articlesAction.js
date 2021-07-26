@@ -1,11 +1,11 @@
-import { TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,  LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL, ARTICLE_DETAILS_REQUEST, ARTICLE_DETAILS_SUCCESS, ARTICLE_DETAILS_FAIL, ARTICLE_DELETE_REQUEST, ARTICLE_DELETE_SUCCESS, ARTICLE_DELETE_FAIL, ARTICLE_UPDATE_REQUEST, ARTICLE_UPDATE_SUCCESS, ARTICLE_UPDATE_FAIL, ARTICLE_CREATE_COMMENT_REQUEST, ARTICLE_CREATE_COMMENT_SUCCESS, ARTICLE_CREATE_COMMENT_FAIL } from '../constants/articleConstants'
+import { ARTICLE_CREATE_SUCCESS,ARTICLE_CREATE_REQUEST,ARTICLE_CREATE_FAIL,TRENDING_ARTICLE_LIST_FAIL, TRENDING_ARTICLE_LIST_REQUEST, TRENDING_ARTICLE_LIST_SUCCESS,  LATEST_ARTICLE_LIST_FAIL, LATEST_ARTICLE_LIST_REQUEST, LATEST_ARTICLE_LIST_SUCCESS, ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL, ARTICLE_DETAILS_REQUEST, ARTICLE_DETAILS_SUCCESS, ARTICLE_DETAILS_FAIL, ARTICLE_DELETE_REQUEST, ARTICLE_DELETE_SUCCESS, ARTICLE_DELETE_FAIL, ARTICLE_UPDATE_REQUEST, ARTICLE_UPDATE_SUCCESS, ARTICLE_UPDATE_FAIL, ARTICLE_CREATE_COMMENT_REQUEST, ARTICLE_CREATE_COMMENT_SUCCESS, ARTICLE_CREATE_COMMENT_FAIL } from '../constants/articleConstants'
 import axios from 'axios'
 
 const listArticles = (keyword= '') => async (dispatch) =>{
     try {
         dispatch({type: ARTICLE_LIST_REQUEST})
 
-        const { data } = await axios.get(`/api/article/all?keyword=${keyword}`)
+        const { data } = await axios.get(`http://localhost:5000/api/article/all?keyword=${keyword}`)
 
         dispatch({
             type: ARTICLE_LIST_SUCCESS,
@@ -23,7 +23,7 @@ const listArticleDetails = (id) => async (dispatch) =>{
     try {
         dispatch({type: ARTICLE_DETAILS_REQUEST})
 
-        const { data } = await axios.get(`/api/article/${id}`)
+        const { data } = await axios.get(`http://localhost:5000/api/article/${id}`)
 
         dispatch({
             type: ARTICLE_DETAILS_SUCCESS,
@@ -41,7 +41,7 @@ const listTrendingArticles = () => async (dispatch) =>{
     try {
         dispatch({type: TRENDING_ARTICLE_LIST_REQUEST})
 
-        const { data } = await axios.get('/api/article/trending')
+        const { data } = await axios.get('http://localhost:5000/api/article/trending')
 
         dispatch({
             type: TRENDING_ARTICLE_LIST_SUCCESS,
@@ -59,7 +59,7 @@ const listLatestArticles = () => async (dispatch) =>{
     try {
         dispatch({type: LATEST_ARTICLE_LIST_REQUEST})
 
-        const { data } = await axios.get('/api/article/latest')
+        const { data } = await axios.get('http://localhost:5000/api/article/latest')
 
         dispatch({
             type: LATEST_ARTICLE_LIST_SUCCESS,
@@ -85,7 +85,7 @@ const deleteArticle = (id) => async (dispatch,getState) =>{
             }
         }
 
-        await axios.delete(`/api/article/${id}`, config)
+        await axios.delete(`http://localhost:5000/api/article/${id}`, config)
 
         dispatch({
             type: ARTICLE_DELETE_SUCCESS,
@@ -110,7 +110,7 @@ const createAArticle = () => async (dispatch,getState) =>{
             }
         }
 
-        const { data } = await axios.post(`/api/article/${id}`, {} , config)
+        const { data } = await axios.post(`http://localhost:5000/api/article`, {} , config)
 
         dispatch({
             type: ARTICLE_CREATE_SUCCESS,
@@ -137,7 +137,7 @@ const updateArticle = (article) => async (dispatch,getState) =>{
             }
         }
 
-        const { data } = await axios.put(`/api/article/${article._id}`, article , config)
+        const { data } = await axios.put(`http://localhost:5000/api/article/${article._id}`, article , config)
 
         dispatch({
             type: ARTICLE_UPDATE_SUCCESS,
@@ -164,7 +164,7 @@ const createArticleReview = (articleId, review) => async (dispatch,getState) =>{
             }
         }
 
-        await axios.post(`/api/article/${articleId}/reviews`, review , config)
+        await axios.post(`http://localhost:5000/api/article/${articleId}/reviews`, review , config)
 
         dispatch({
             type: ARTICLE_CREATE_COMMENT_SUCCESS

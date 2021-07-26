@@ -13,7 +13,7 @@ export const signin = (email,password) => async(dispatch) => {
             }
         }
 
-        const { data } = await axios.post('/api/user/signin',{ email, password }, config)
+        const { data } = await axios.post('http://localhost:5000/api/user/signin',{ email, password }, config)
 
         dispatch({
             type: USER_LOGIN_SUCCESS,
@@ -48,7 +48,7 @@ export const register = (name, email,password) => async(dispatch) => {
             }
         }
 
-        const { data } = await axios.post('/api/user',{ name, email, password }, config)
+        const { data } = await axios.post('http://localhost:5000/api/user',{ name, email, password }, config)
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
@@ -84,7 +84,7 @@ export const getUserDetails = (id) => async(dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(`/api/user/${id}`, config)
+        const { data } = await axios.get(`http://localhost:5000/api/user/${id}`, config)
 
         dispatch({
             type: USER_DETAILS_SUCCESS,
@@ -114,7 +114,7 @@ export const updateUserProfile = (user) => async(dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put('/api/user/profile',user, config)
+        const { data } = await axios.put('http://localhost:5000/api/user/profile',user, config)
 
         dispatch({
             type: USER_UPDATE_PROFILE_SUCCESS,
@@ -143,7 +143,7 @@ export const userLists = () => async(dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get('/api/user',config)
+        const { data } = await axios.get('http://localhost:5000/api/user',config)
 
         dispatch({
             type: USER_LIST_SUCCESS,
@@ -172,7 +172,7 @@ export const deleteUser = (id) => async(dispatch, getState) => {
             }
         }
 
-       await axios.delete(`/api/user/${id}`,config)
+       await axios.delete(`http://localhost:5000/api/user/${id}`,config)
 
         dispatch({
             type: USER_DELETE_SUCCESS
@@ -186,7 +186,7 @@ export const deleteUser = (id) => async(dispatch, getState) => {
     }
 }
 
-export const updateUser = (id) => async(dispatch, getState) => {
+export const updateUser = (user) => async(dispatch, getState) => {
     try {
         dispatch({
             type: USER_UPDATE_REQUEST
@@ -201,7 +201,7 @@ export const updateUser = (id) => async(dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`/api/user/${id}`,user, config)
+        const { data } = await axios.put(`http://localhost:5000/api/user/${user._id}`,user, config)
 
         dispatch({
             type: USER_UPDATE_SUCCESS,
