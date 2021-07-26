@@ -64,11 +64,11 @@ const Navbar = () => {
         </NavMenu>
         {userInfo? (
           <div>
-            <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
+            <Button aria-controls="fade-admin" aria-haspopup="true" onClick={handleClick}>
               {userInfo.name}
             </Button>
             <Menu
-              id="fade-menu"
+              id="fade-admin"
               anchorEl={anchorEl}
               keepMounted
               open={open}
@@ -105,7 +105,7 @@ const Navbar = () => {
               <Link to="/admin/userlist"> Users</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link to="/admin/productlist"> Products</Link>
+              <Link to="/admin/articlelist"> Articles</Link>
             </MenuItem>
           </Menu>
          </div>

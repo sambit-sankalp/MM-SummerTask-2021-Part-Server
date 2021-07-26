@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector} from 'react-redux';
+import clsx from 'clsx';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import axios from 'axios';
 import Paper from "@material-ui/core/Paper";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
+import FormControl from '@material-ui/core/FormControl';
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -65,7 +69,7 @@ const uploadFileHandler = async(e) => {
       }
     }
 
-    const { data } =  await axios.post('/api/upload', formData, config)
+    const { data } =  await axios.post('http://localhost:5000/api/upload', formData, config)
 
     setValues({ imageUrl: data, uploading: false})
     
@@ -84,23 +88,27 @@ const uploadFileHandler = async(e) => {
   const {loading: loadingUpdate , error: errorUpdate , success: successUpdate} = articleUpdate
 
   useEffect(() => {
+    dispatch(listArticleDetails(articleId))
     if(successUpdate){
       dispatch({type: ARTICLE_UPDATE_RESET})
-      history.push('/admin/productlist')
+      history.push('/admin/articlelist')
     }
     else{
-      if(!article.title || article._id !== articleId){
-        dispatch(listArticleDetails(articleId))
-      }
-      else
+      if(article)
       {
-        setValues({
-          title: article.title,
-          imageUrl: article.imageUrl,
-          category: article.category,
-          writer: article.writer,
-          desc: article.desc
-        })
+        if(!article.title || article._id !== articleId){
+          dispatch(listArticleDetails(articleId))
+        }
+        else
+        {
+          setValues({
+            title: article.title,
+            imageUrl: article.imageUrl,
+            category: article.category,
+            writer: article.writer,
+            desc: article.desc
+          })
+        }
       }
     }
     
@@ -181,7 +189,7 @@ const uploadFileHandler = async(e) => {
                             Upload
                           </Button>
                         </label>
-                        {uploading && <CircularProgress/>}
+                        {values.uploading && <CircularProgress/>}
                     </div>
                     <div>
                       <FormControl

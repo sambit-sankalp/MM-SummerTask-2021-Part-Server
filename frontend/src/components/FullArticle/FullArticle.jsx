@@ -1,6 +1,11 @@
 import React, {useState,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
+import clsx from 'clsx';
+import InputLabel from '@material-ui/core/InputLabel';
 import CssBaseline from "@material-ui/core/CssBaseline";
+import FormControl from '@material-ui/core/FormControl';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { useDispatch, useSelector} from 'react-redux';
 import Typography from "@material-ui/core/Typography";
 import { Paper } from "@material-ui/core";
@@ -35,8 +40,8 @@ const FullArticle = () => {
   const articleDetails = useSelector(state => state.articleDetails)
     const { loading , error , article } = articleDetails
 
-    const articleLogin = useSelector(state => state.articleLogin)
-    const { userInfo } = articleLogin
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     const articleCommentCreate = useSelector(state => state.articleCommentCreate)
     const { loading: commentLoading , error: commentError , success } = articleCommentCreate
@@ -144,7 +149,7 @@ const FullArticle = () => {
               </Typography>
               <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
               <form className={classes.root} onSubmit={submitButtonHandler} noValidate autoComplete="off">
-                <Button variant="contained" color="primary" type="submit" onClick={setLike(!like)}>
+                <Button variant="contained" color="primary" type="submit" onClick={setLike(true)}>
                   {article.reviews.liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </Button>
               </form>

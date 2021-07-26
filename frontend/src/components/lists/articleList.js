@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -65,7 +65,7 @@ const ArticleList = () => {
   const { loading: loadingDelete, error: errorDelete, success: successDelete } = articleDelete
 
   const createArticle = useSelector(state => state.createArticle)
-  const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = createArticle
+  const { loading: loadingCreate, error: errorCreate, success: successCreate, article: createdProduct } = createArticle
 
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const ArticleList = () => {
     }
     if(successCreate)
     {
-      history.push(`/admin/product/${createdProduct._id}/edit`)
+      history.push(`/admin/article/${createdProduct._id}/edit`)
     }
     else
     {
@@ -98,7 +98,7 @@ const ArticleList = () => {
   return (
     <div>
         <div>
-          <h1>Users</h1>
+          <h1>Articles</h1>
           <Fab color="primary" aria-label="add" className = {classes.fab} onClick={createArticleHandler}>
             <AddIcon />
           </Fab>
@@ -136,7 +136,7 @@ const ArticleList = () => {
                                     <EditIcon />
                                 </Fab>
                             </Link>
-                            <Fab color="secondary" aria-label="delete" onClick= {() => deleteHandler(user._id)}>
+                            <Fab color="secondary" aria-label="delete" onClick= {() => deleteHandler(article._id)}>
                                     <DeleteIcon />
                             </Fab>
                         </StyledTableCell>

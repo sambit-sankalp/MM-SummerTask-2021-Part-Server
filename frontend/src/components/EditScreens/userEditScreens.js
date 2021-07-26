@@ -8,6 +8,7 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
+import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -90,7 +91,7 @@ const UserEditScreen = () => {
 
   const submitHandler = (e) => {
       e.preventDefault()
-      dispatch(updateUser({_id : userId,name,email, isAdmin}))
+      dispatch(updateUser({_id:userId,name,email, isAdmin}))
   }
 
   return (
@@ -102,7 +103,7 @@ const UserEditScreen = () => {
       {updateError && <Alert severity="error">{updateError}</Alert>}
       {message && <Alert severity="error">{message}</Alert>}
       {error && <Alert severity="error">{error}</Alert>}
-      {success && <Alert severity="success">Updated!!</Alert>}
+      {successUpdate && <Alert severity="success">Updated!!</Alert>}
       {loading ? <CircularProgress /> : error ? <Alert severity="error">{error}</Alert> : (
         <Grid
         container
