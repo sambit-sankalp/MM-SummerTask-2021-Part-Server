@@ -75,7 +75,7 @@ const Reviews = ({ id }) => {
             <div>
               <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
               <form className={classes.root} onSubmit={submitButtonHandler} noValidate autoComplete="off">
-                <Button variant="contained" color="primary" type="submit" onClick={setLike(true)}>
+                <Button variant="contained" color="primary" type="submit" onClick={setLike(!like)}>
                   {article.reviews.liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </Button>
               </form>

@@ -1,46 +1,47 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Grid from "@material-ui/core/Grid";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { getUserDetails, updateUserProfile } from '../../actions/userAction';
+import { getUserDetails, updateUserProfile } from "../../actions/userAction";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   margin: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   withoutLabel: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   textField: {
-    width: "50ch"
+    width: "50ch",
   },
   button: {
     "& > *": {
-      margin: theme.spacing(2)
-    }
-  }
+      margin: theme.spacing(2),
+    },
+  },
 }));
 
 const ProfileScreen = () => {
   let history = useHistory();
   const classes = useStyles();
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState(null);
   const [values, setValues] = React.useState({
     name: "",
     amount: "",
@@ -48,7 +49,8 @@ const ProfileScreen = () => {
     confirmPassword: "",
     email: "",
     emailRange: "",
-    showPassword: false
+    showPassword: false,
+    showConfirmPassword: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -59,54 +61,63 @@ const ProfileScreen = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
+  const handleClickShowConfirmPassword = () => {
+    setValues({ ...values, showConfirmPassword: !values.showConfirmPassword });
+  };
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const userDetails =  useSelector(state => state.userDetails)
-  const { loading, error, user } = userDetails
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading, error, user } = userDetails;
 
-  const userLogin =  useSelector(state => state.userLogin)
-  const {  userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  const userUpdateProfile =  useSelector(state => state.userUpdateProfile)
-  const {  success } = userUpdateProfile
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
 
   useEffect(() => {
-      if(!userInfo)
-      {
-          history.push('/signin')
+    if (!userInfo) {
+      history.push("/signin");
+    } else {
+      if (!user.name) {
+        dispatch(getUserDetails("profile"));
+      } else {
+        setValues({
+          name: user.name,
+          email: user.email,
+        });
       }
-      else{
-          if(!user.name)
-          {
-            dispatch(getUserDetails('profile'))
-          }
-          else{
-              setValues({
-                  name: user.name,
-                  email: user.email
-              })
-          }
-      }
-  }, [dispatch,history,userInfo,user])
+    }
+  }, [dispatch, history, userInfo, user]);
 
   const submitHandler = (e) => {
-      e.preventDefault()
-      if(values.password != values.confirmPassword)
-      {
-        setMessage("Password do not match")
-      }
-      else{
-        dispatch(updateUserProfile({ id: user._id, name , email, password}))
-      }
-      
-  }
+    e.preventDefault();
+    if (values.password != values.confirmPassword) {
+      setMessage("Password do not match");
+    } else {
+      dispatch(
+        updateUserProfile({
+          id: user._id,
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        })
+      );
+    }
+  };
 
   return (
-    <form className={classes.root} onSubmit={submitHandler} noValidate autoComplete="off">
+    <form
+      className={classes.root}
+      onSubmit={submitHandler}
+      noValidate
+      autoComplete="off"
+    >
       {message && <Alert severity="error">{message}</Alert>}
       {error && <Alert severity="error">{error}</Alert>}
       {success && <Alert severity="success">Updated!!</Alert>}
@@ -117,7 +128,6 @@ const ProfileScreen = () => {
         justify="space-evenly"
         alignItems="center"
       >
-
         <div>
           <FormControl
             fullWidth
@@ -131,7 +141,7 @@ const ProfileScreen = () => {
               onChange={handleChange("name")}
               aria-describedby="outlined-name-helper-text"
               inputProps={{
-                "aria-label": "name"
+                "aria-label": "name",
               }}
               labelWidth={40}
             />
@@ -147,11 +157,10 @@ const ProfileScreen = () => {
             <OutlinedInput
               id="outlined-adornment-email"
               value={values.email}
-              onChange={handleChange("email")
-              }
+              onChange={handleChange("email")}
               aria-describedby="outlined-email-helper-text"
               inputProps={{
-                "aria-label": "email"
+                "aria-label": "email",
               }}
               labelWidth={40}
             />
@@ -175,7 +184,7 @@ const ProfileScreen = () => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
+                    onClick={handleClickShowConfirmPassword}
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
@@ -193,11 +202,11 @@ const ProfileScreen = () => {
             variant="outlined"
             fullWidth
           >
-            <InputLabel htmlFor="outlined-adornment-password">
+            <InputLabel htmlFor="outlined-adornment-confirm-password">
               Confirm Password
             </InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
+              id="outlined-adornment-confirm-password"
               type={values.showPassword ? "text" : "password"}
               value={values.confirmPassword}
               onChange={handleChange("confirmPassword")}
@@ -213,18 +222,18 @@ const ProfileScreen = () => {
                   </IconButton>
                 </InputAdornment>
               }
-              labelWidth={70}
+              labelWidth={130}
             />
           </FormControl>
         </div>
         <div className={classes.button}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" type="submit">
             Update
           </Button>
         </div>
       </Grid>
     </form>
   );
-}
+};
 
-export default ProfileScreen
+export default ProfileScreen;

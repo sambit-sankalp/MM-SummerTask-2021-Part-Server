@@ -9,8 +9,9 @@ import SignUp from "./SignIn/SignUpSection"
 import UserList from './lists/usersList'
 import ArticleList from './lists/articleList'
 import UserEditScreen from './EditScreens/userEditScreens';
-import ProductEditScreen from './EditScreens/articleEditScreen'
+import ArticleEditScreen from './EditScreens/articleEditScreen'
 import FullArticle from './FullArticle/FullArticlePage'
+import Profile from './Profile/ProfileScreen'
   
 function Body() {
   return (
@@ -23,10 +24,11 @@ function Body() {
         <Route path='/about' component={About} />
         <Route path='/signin' component={SignIn} />
         <Route path='/register' component={SignUp} />
+        <Route path='/profile' component={Profile} />
         <Route path='/admin/userlist' component={UserList} />
         <Route path='/admin/articlelist' component={ArticleList} />
-        <Route path='/admin/user/:id/edit' component={UserEditScreen} />
-        <Route path='/admin/article/:id/edit' component={ProductEditScreen} />
+        <Route path='/admin/user/:userId/edit' component={UserEditScreen} />
+        <Route path='/admin/article/:articleId/edit' component={ArticleEditScreen} />
         <Route path='/search/:keyword' component={Home} />
       </Switch>
     </Router>
