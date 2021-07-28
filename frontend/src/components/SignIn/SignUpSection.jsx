@@ -205,7 +205,7 @@ const SignUp = () => {
           </FormControl>
         </div>
         <div className={classes.button}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" type="submit">
             Sign Up
           </Button>
         </div>

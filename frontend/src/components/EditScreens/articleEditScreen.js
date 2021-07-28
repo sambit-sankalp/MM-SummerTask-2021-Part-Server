@@ -1,45 +1,51 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector} from 'react-redux';
-import clsx from 'clsx';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import clsx from "clsx";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import FormControl from '@material-ui/core/FormControl';
+import FormControl from "@material-ui/core/FormControl";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 import TextField from "@material-ui/core/TextField";
 import theme from "../theme";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { listArticleDetails, updateArticle } from '../../actions/articlesAction';
-import {ARTICLE_UPDATE_RESET} from '../../constants/articleConstants'
+import {
+  listArticleDetails,
+  updateArticle,
+} from "../../actions/articlesAction";
+import { ARTICLE_UPDATE_RESET } from "../../constants/articleConstants";
 import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
+  },
+  margin: {
+    margin: theme.spacing(1)
   },
   button: {
     "& > *": {
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
   },
   input: {
-    display: 'none',
-  }
+    display: "none",
+  },
 }));
 
 const EditArticles = () => {
-  const {articleId} = useParams()
-  let history = useHistory()
+  const { articleId } = useParams();
+  let history = useHistory();
 
   const classes = useStyles();
 
@@ -49,77 +55,86 @@ const EditArticles = () => {
     category: "",
     writer: "",
     desc: "",
-    uploading: false
+    uploading: false,
   });
 
   const handleChange = (prop) => (event) => {
-  setValues({ ...values, [prop]: event.target.value });
-};
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
-const uploadFileHandler = async(e) => {
-  const file = e.target.files[0]
-  const formData = new FormData()
-  formData.append('image', file)
-  setValues({uploading: true})
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setValues({ uploading: true });
 
-  try{
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/api/upload",
+        formData,
+        config
+      );
+
+      setValues({ imageUrl: data, uploading: false });
+    } catch (error) {
+      console.error(error);
+      setValues({ uploading: false });
     }
+  };
 
-    const { data } =  await axios.post('http://localhost:5000/api/upload', formData, config)
+  const dispatch = useDispatch();
 
-    setValues({ imageUrl: data, uploading: false})
-    
-  }catch(error){
-    console.error(error)
-    setValues({ uploading: false})
-  }
-}
+  const articleDetails = useSelector((state) => state.articleDetails);
+  const { loading, error, article } = articleDetails;
 
-  const dispatch = useDispatch()
-
-  const articleDetails = useSelector((state) => state.articleDetails)
-  const {loading , error , article} = articleDetails
-
-  const articleUpdate = useSelector((state) => state.articleUpdate)
-  const {loading: loadingUpdate , error: errorUpdate , success: successUpdate} = articleUpdate
+  const articleUpdate = useSelector((state) => state.articleUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = articleUpdate;
 
   useEffect(() => {
-    dispatch(listArticleDetails(articleId))
-    if(successUpdate){
-      dispatch({type: ARTICLE_UPDATE_RESET})
-      history.push('/admin/articlelist')
-    }
-    else{
-      if(article)
-      {
-        if(!article.title || article._id !== articleId){
-          dispatch(listArticleDetails(articleId))
-        }
-        else
-        {
+    dispatch(listArticleDetails(articleId));
+    if (successUpdate) {
+      dispatch({ type: ARTICLE_UPDATE_RESET });
+      history.push("/admin/articlelist");
+    } else {
+      if (article) {
+        if (!article.title || article._id !== articleId) {
+          dispatch(listArticleDetails(articleId));
+        } else {
           setValues({
             title: article.title,
             imageUrl: article.imageUrl,
             category: article.category,
             writer: article.writer,
-            desc: article.desc
-          })
+            desc: article.desc,
+          });
         }
       }
     }
-    
-    
-  }, [dispatch, articleId, article, history])
+  }, [dispatch, articleId, article, history]);
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(updateArticle({ _id: articleId , title , imageUrl, category, desc, writer}))
-    
-  }
+    e.preventDefault();
+    dispatch(
+      updateArticle({
+        _id: articleId,
+        title: values.title,
+        imageUrl: values.imageUrl,
+        category: values.category,
+        desc : values.desc,
+        writer: values.writer,
+      })
+    );
+  };
 
   return (
     <React.Fragment>
@@ -129,7 +144,12 @@ const uploadFileHandler = async(e) => {
           <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg">
-            <form className={classes.root} onSubmit={submitHandler} noValidate autoComplete="off">
+              <form
+                className={classes.root}
+                onSubmit={submitHandler}
+                noValidate
+                autoComplete="off"
+              >
                 <ThemeProvider theme={theme}>
                   <Typography component="div" align="left" variant="h4">
                     Your Article
@@ -137,7 +157,11 @@ const uploadFileHandler = async(e) => {
                 </ThemeProvider>
                 {loadingUpdate && <CircularProgress />}
                 {errorUpdate && <Alert severity="error">{errorUpdate}</Alert>}
-                {loading ? <CircularProgress /> : error ? <Alert severity="error">{error}</Alert> : (
+                {loading ? (
+                  <CircularProgress />
+                ) : error ? (
+                  <Alert severity="error">{error}</Alert>
+                ) : (
                   <div>
                     <div>
                       <FormControl
@@ -145,14 +169,16 @@ const uploadFileHandler = async(e) => {
                         className={clsx(classes.margin, classes.textField)}
                         variant="outlined"
                       >
-                        <InputLabel htmlFor="outlined-adornment-title">Title</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-title">
+                          Title
+                        </InputLabel>
                         <OutlinedInput
                           id="outlined-adornment-title"
                           value={values.title}
                           onChange={handleChange("title")}
                           aria-describedby="outlined-name-helper-text"
                           inputProps={{
-                            "aria-label": "title"
+                            "aria-label": "title",
                           }}
                           labelWidth={40}
                         />
@@ -164,32 +190,38 @@ const uploadFileHandler = async(e) => {
                         className={clsx(classes.margin, classes.textField)}
                         variant="outlined"
                       >
-                        <InputLabel htmlFor="outlined-adornment-imageUrl">Image</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-imageUrl">
+                          Image
+                        </InputLabel>
                         <OutlinedInput
                           id="outlined-adornment-imageUrl"
                           value={values.imageUrl}
                           onChange={handleChange("imageUrl")}
                           aria-describedby="outlined-name-helper-text"
                           inputProps={{
-                            "aria-label": "imageUrl"
+                            "aria-label": "imageUrl",
                           }}
                           labelWidth={40}
                         />
                       </FormControl>
-                        <input
-                          accept="image/*"
-                          className={classes.input}
-                          id="contained-button-file"
-                          multiple
-                          type="file"
-                          onChange={uploadFileHandler}
-                        />
-                        <label htmlFor="contained-button-file">
-                          <Button variant="contained" color="primary" component="span">
-                            Upload
-                          </Button>
-                        </label>
-                        {values.uploading && <CircularProgress/>}
+                      <input
+                        accept="image/*"
+                        className={classes.input}
+                        id="contained-button-file"
+                        multiple
+                        type="file"
+                        onChange={uploadFileHandler}
+                      />
+                      <label htmlFor="contained-button-file">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          component="span"
+                        >
+                          Upload
+                        </Button>
+                      </label>
+                      {values.uploading && <CircularProgress />}
                     </div>
                     <div>
                       <FormControl
@@ -197,14 +229,16 @@ const uploadFileHandler = async(e) => {
                         className={clsx(classes.margin, classes.textField)}
                         variant="outlined"
                       >
-                        <InputLabel htmlFor="outlined-adornment-writer">Writer</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-writer">
+                          Writer
+                        </InputLabel>
                         <OutlinedInput
                           id="outlined-adornment-writer"
                           value={values.writer}
                           onChange={handleChange("writer")}
                           aria-describedby="outlined-name-helper-text"
                           inputProps={{
-                            "aria-label": "writer"
+                            "aria-label": "writer",
                           }}
                           labelWidth={40}
                         />
@@ -216,14 +250,16 @@ const uploadFileHandler = async(e) => {
                         className={clsx(classes.margin, classes.textField)}
                         variant="outlined"
                       >
-                        <InputLabel htmlFor="outlined-adornment-category">Category</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-category">
+                          Category
+                        </InputLabel>
                         <OutlinedInput
                           id="outlined-adornment-category"
                           value={values.category}
                           onChange={handleChange("category")}
                           aria-describedby="outlined-name-helper-text"
                           inputProps={{
-                            "aria-label": "category"
+                            "aria-label": "category",
                           }}
                           labelWidth={40}
                         />
@@ -235,14 +271,16 @@ const uploadFileHandler = async(e) => {
                         className={clsx(classes.margin, classes.textField)}
                         variant="outlined"
                       >
-                        <InputLabel htmlFor="outlined-adornment-desc">Description</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-desc">
+                          Description
+                        </InputLabel>
                         <OutlinedInput
                           id="outlined-adornment-desc"
                           value={values.desc}
                           onChange={handleChange("desc")}
                           aria-describedby="outlined-name-helper-text"
                           inputProps={{
-                            "aria-label": "desc"
+                            "aria-label": "desc",
                           }}
                           labelWidth={40}
                         />
@@ -262,7 +300,6 @@ const uploadFileHandler = async(e) => {
                     </Grid>
                   </div>
                 )}
-                
               </form>
             </Container>
           </React.Fragment>
@@ -270,6 +307,6 @@ const uploadFileHandler = async(e) => {
       </Container>
     </React.Fragment>
   );
-}
+};
 
 export default EditArticles;

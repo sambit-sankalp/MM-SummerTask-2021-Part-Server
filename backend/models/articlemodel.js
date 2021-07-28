@@ -64,7 +64,7 @@ const articleSchema = mongoose.Schema(
           required: true,
           ref: "User",
         },
-      }
+      },
     ],
   },
   {
