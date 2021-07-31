@@ -16,14 +16,14 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
     textAlign: "left",
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   media: {
-    height: 140
+    height: 140,
   },
   avatar: {
-    backgroundColor: red[500]
-  }
+    backgroundColor: red[500],
+  },
 });
 
 export default function ArticleCard() {

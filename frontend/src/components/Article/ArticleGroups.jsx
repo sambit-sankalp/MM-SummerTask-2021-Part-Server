@@ -22,7 +22,6 @@ import IconButton from "@material-ui/core/IconButton";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { AddCircleOutlineRounded } from "@material-ui/icons";
-import articles from "../Constants/Articles.js";
 
 function articleCard(trendingArticle) {
   return (
@@ -38,35 +37,35 @@ function articleCard(trendingArticle) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: "rotate(180deg)",
   },
   addIcon: {
-    margin: "0 auto"
+    margin: "0 auto",
   },
   category: {
     fontSize: "30px",
     margin: theme.spacing(2),
-    marginTop: theme.spacing(3)
-  }
+    marginTop: theme.spacing(3),
+  },
 }));
 
 export default function ArticlesGroup(props) {
@@ -102,7 +101,7 @@ export default function ArticlesGroup(props) {
       <CardActions disableSpacing>
         <IconButton
           className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
+            [classes.expandOpen]: expanded,
           })}
           onClick={handleExpandClick}
           aria-expanded={expanded}

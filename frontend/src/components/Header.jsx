@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./assets/Group 1.png";
 
 function Header() {
   return (
@@ -7,10 +6,13 @@ function Header() {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
-      <img src="https://res.cloudinary.com/sambitsankalp/image/upload/v1627048522/MM%20tasks/Logo_aveyxh.png" alt="Logo" />
+      <img
+        src="https://res.cloudinary.com/sambitsankalp/image/upload/v1627048522/MM%20tasks/Logo_aveyxh.png"
+        alt="Logo"
+      />
     </div>
   );
 }

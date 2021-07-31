@@ -1,41 +1,41 @@
-import React, {useState, useEffect} from "react";
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector} from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { signin } from '../../actions/userAction'
+import { signin } from "../../actions/userAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   margin: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   withoutLabel: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   textField: {
-    width: "50ch"
+    width: "50ch",
   },
   button: {
     "& > *": {
-      margin: theme.spacing(2)
-    }
-  }
+      margin: theme.spacing(2),
+    },
+  },
 }));
 
 const SignIn = () => {
@@ -48,7 +48,7 @@ const SignIn = () => {
     password: "",
     email: "",
     emailRange: "",
-    showPassword: false
+    showPassword: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -63,30 +63,33 @@ const SignIn = () => {
     event.preventDefault();
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const userLogin =  useSelector(state => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
-      if(userInfo)
-      {
-          history.push(redirect)
-      }
-  }, [history,userInfo,redirect])
+    if (userInfo) {
+      history.push(redirect);
+    }
+  }, [history, userInfo, redirect]);
 
   const submitHandler = (e) => {
-      e.preventDefault()
-      dispatch(signin(values.email, values.password))
-  }
-
+    e.preventDefault();
+    dispatch(signin(values.email, values.password));
+  };
 
   return (
-    <form onSubmit={submitHandler} noValidate autoComplete="off" className={classes.root}>
-        {error && <Alert severity="error">{error}</Alert>}
-        {loading && <CircularProgress />}
+    <form
+      onSubmit={submitHandler}
+      noValidate
+      autoComplete="off"
+      className={classes.root}
+    >
+      {error && <Alert severity="error">{error}</Alert>}
+      {loading && <CircularProgress />}
       <Grid
         container
         direction="column"
@@ -109,7 +112,7 @@ const SignIn = () => {
               }
               aria-describedby="outlined-email-helper-text"
               inputProps={{
-                "aria-label": "email"
+                "aria-label": "email",
               }}
               labelWidth={40}
             />
@@ -146,19 +149,23 @@ const SignIn = () => {
           </FormControl>
         </div>
         <div className={classes.button}>
-          <Button type='submit' variant="contained" color="primary">
+          <Button type="submit" variant="contained" color="primary">
             Sign In
           </Button>
         </div>
         <div>
-            <Grid direction= "Row">
-                New User?{' '}
-                <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
-            </Grid>
+          <Grid direction="Row">
+            New User?{" "}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+            >
+              Register
+            </Link>
+          </Grid>
         </div>
       </Grid>
     </form>
   );
-}
+};
 
-export default SignIn
+export default SignIn;

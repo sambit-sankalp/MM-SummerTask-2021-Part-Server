@@ -1,41 +1,41 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Grid from "@material-ui/core/Grid";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { register } from '../../actions/userAction'
-import {Link, useHistory, useLocation } from "react-router-dom";
+import { register } from "../../actions/userAction";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   margin: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   withoutLabel: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   textField: {
-    width: "50ch"
+    width: "50ch",
   },
   button: {
     "& > *": {
-      margin: theme.spacing(2)
-    }
-  }
+      margin: theme.spacing(2),
+    },
+  },
 }));
 
 const SignUp = () => {
@@ -43,7 +43,7 @@ const SignUp = () => {
   const history = useHistory();
 
   const classes = useStyles();
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState(null);
   const [values, setValues] = useState({
     name: "",
     amount: "",
@@ -51,7 +51,7 @@ const SignUp = () => {
     confirmPassword: "",
     email: "",
     emailRange: "",
-    showPassword: false
+    showPassword: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -66,34 +66,35 @@ const SignUp = () => {
     event.preventDefault();
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const userRegister =  useSelector(state => state.userRegister)
-  const { loading, error, userInfo } = userRegister
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
-      if(userInfo)
-      {
-          history.push(redirect)
-      }
-  }, [history,userInfo,redirect])
+    if (userInfo) {
+      history.push(redirect);
+    }
+  }, [history, userInfo, redirect]);
 
   const submitHandler = (e) => {
-      e.preventDefault()
-      if(values.password != values.confirmPassword)
-      {
-        setMessage("Password do not match")
-      }
-      else{
-        dispatch(register(values.name, values.email, values.password))
-      }
-      
-  }
+    e.preventDefault();
+    if (values.password != values.confirmPassword) {
+      setMessage("Password do not match");
+    } else {
+      dispatch(register(values.name, values.email, values.password));
+    }
+  };
 
   return (
-    <form className={classes.root} onSubmit={submitHandler} noValidate autoComplete="off">
+    <form
+      className={classes.root}
+      onSubmit={submitHandler}
+      noValidate
+      autoComplete="off"
+    >
       {message && <Alert severity="error">{message}</Alert>}
       {error && <Alert severity="error">{error}</Alert>}
       {loading && <CircularProgress />}
@@ -116,7 +117,7 @@ const SignUp = () => {
               onChange={handleChange("name")}
               aria-describedby="outlined-name-helper-text"
               inputProps={{
-                "aria-label": "name"
+                "aria-label": "name",
               }}
               labelWidth={73}
             />
@@ -138,7 +139,7 @@ const SignUp = () => {
               }
               aria-describedby="outlined-email-helper-text"
               inputProps={{
-                "aria-label": "email"
+                "aria-label": "email",
               }}
               labelWidth={40}
             />
@@ -210,14 +211,16 @@ const SignUp = () => {
           </Button>
         </div>
         <div>
-            <Grid direction= "Row">
-                Already have a account?{' '}
-                <Link to={redirect ? `/signin?redirect=${redirect}` : '/signin'}>Log In</Link>
-            </Grid>
+          <Grid direction="Row">
+            Already have a account?{" "}
+            <Link to={redirect ? `/signin?redirect=${redirect}` : "/signin"}>
+              Log In
+            </Link>
+          </Grid>
         </div>
       </Grid>
     </form>
   );
-}
+};
 
-export default SignUp
+export default SignUp;

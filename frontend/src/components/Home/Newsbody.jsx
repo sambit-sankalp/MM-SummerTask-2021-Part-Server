@@ -12,17 +12,17 @@ import Latest from "./Latest";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     backgroundColor: "#f3ea41",
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   side: {
-    marginTop: theme.spacing(9)
-  }
+    marginTop: theme.spacing(9),
+  },
 }));
 
 export default function SimpleContainer() {

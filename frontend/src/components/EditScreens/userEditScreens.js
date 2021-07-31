@@ -55,10 +55,11 @@ const UserEditScreen = () => {
   });
 
   const handleChange = (prop) => (event) => {
-    if (prop === "isAdmin") {
-      setValues({ ...values, [prop]: event.target.checked });
-    }
     setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleCheckChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.checked });
   };
 
   const dispatch = useDispatch();
@@ -74,9 +75,8 @@ const UserEditScreen = () => {
   } = userUpdate;
 
   useEffect(() => {
-    console.log(user, error);
     if (successUpdate) {
-      dispatch({ USER_UPDATE_RESET });
+      dispatch({ type: USER_UPDATE_RESET });
       history.push("/admin/userlist");
     } else {
       if (!user || !user.name || user._id !== userId) {
@@ -110,9 +110,6 @@ const UserEditScreen = () => {
       noValidate
       autoComplete="off"
     >
-      <Typography component="div" align="left" variant="h4">
-        User Details
-      </Typography>
       {updateLoading && <CircularProgress />}
       {updateError && <Alert severity="error">{updateError}</Alert>}
       {message && <Alert severity="error">{message}</Alert>}
@@ -129,6 +126,9 @@ const UserEditScreen = () => {
           justify="space-evenly"
           alignItems="center"
         >
+          <Typography component="div" align="left" variant="h4">
+            User Details
+          </Typography>
           <div>
             <FormControl
               fullWidth
@@ -172,7 +172,7 @@ const UserEditScreen = () => {
               control={
                 <Checkbox
                   checked={values.isAdmin}
-                  onChange={handleChange}
+                  onChange={handleCheckChange}
                   name="isAdmin"
                   color="primary"
                 />

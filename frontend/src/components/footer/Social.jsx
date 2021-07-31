@@ -13,43 +13,43 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "left",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   footerHeading: {
-    color: "#00619b"
+    color: "#00619b",
   },
   facebook: {
     color: "#a0a0a0",
     cursor: "pointer",
     marginLeft: theme.spacing(1),
     "&:hover": {
-      color: "#0f92f3"
-    }
+      color: "#0f92f3",
+    },
   },
   instagram: {
     color: "#a0a0a0",
     cursor: "pointer",
     marginLeft: theme.spacing(1),
     "&:hover": {
-      color: "#cf4c67"
-    }
+      color: "#cf4c67",
+    },
   },
   twitter: {
     color: "#a0a0a0",
     cursor: "pointer",
     marginLeft: theme.spacing(1),
     "&:hover": {
-      color: "#1da1f2"
-    }
+      color: "#1da1f2",
+    },
   },
   feed: {
     color: "#a0a0a0",
     cursor: "pointer",
     marginLeft: theme.spacing(1),
     "&:hover": {
-      color: "#ffcc32"
-    }
-  }
+      color: "#ffcc32",
+    },
+  },
 }));
 
 export default function SocialIcons() {

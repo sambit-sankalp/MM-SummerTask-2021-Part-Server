@@ -12,13 +12,13 @@ import FullArticle from "./FullArticle";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    backgroundColor: "yellow"
-  }
+    backgroundColor: "yellow",
+  },
 }));
 
 export default function ArticlePage() {

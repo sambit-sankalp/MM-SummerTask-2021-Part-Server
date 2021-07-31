@@ -134,7 +134,7 @@ const ProfileScreen = () => {
             className={clsx(classes.margin, classes.textField)}
             variant="outlined"
           >
-            <InputLabel htmlFor="outlined-adornment-email">Name</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-name">Name</InputLabel>
             <OutlinedInput
               id="outlined-adornment-name"
               value={values.name}

@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { ThemeProvider } from "@material-ui/core/styles";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import theme from "../theme";
 import ArticleCard from "../ReusableCards/Articlecard";
-import { listTrendingArticles, listArticles } from '../../actions/articlesAction';
+import {
+  listTrendingArticles,
+  listArticles,
+} from "../../actions/articlesAction";
 import { useParams } from "react-router-dom";
 
 function articleCard(trendingArticle) {
@@ -28,28 +31,26 @@ function articleCard(trendingArticle) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
-  }
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const Articles = () => {
-  const { keyword }= useParams();
-  const dispatch = useDispatch()
+  const { keyword } = useParams();
+  const dispatch = useDispatch();
 
-  const articleList = useSelector(state => state.trendingArticleList)
-  const {loading, error, trending } = articleList
+  const articleList = useSelector((state) => state.trendingArticleList);
+  const { loading, error, trending } = articleList;
 
   useEffect(() => {
-    dispatch(listTrendingArticles())
-    dispatch(listArticles(keyword))
-  }, [dispatch, keyword])
-
-  
+    dispatch(listTrendingArticles());
+    dispatch(listArticles(keyword));
+  }, [dispatch, keyword]);
 
   const classes = useStyles();
   return (
@@ -65,18 +66,23 @@ const Articles = () => {
           >
             Trending
           </Typography>
-          {loading ? <CircularProgress /> : error ? <h3><Alert severity="error">{error}</Alert></h3>: (
+          {loading ? (
+            <CircularProgress />
+          ) : error ? (
+            <h3>
+              <Alert severity="error">{error}</Alert>
+            </h3>
+          ) : (
             <div className={classes.root}>
               <Grid container spacing={2}>
                 {trending.map(articleCard)}
               </Grid>
             </div>
           )}
-          
         </ThemeProvider>
       </Container>
     </React.Fragment>
   );
-}
+};
 
-export default Articles
+export default Articles;

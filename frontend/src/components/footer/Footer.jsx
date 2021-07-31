@@ -14,28 +14,28 @@ import CopyrightIcon from "@material-ui/icons/Copyright";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    backgroundColor: "#111111"
+    backgroundColor: "#111111",
   },
   paperItems: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   copyright: {
     fontSize: "10px",
     textAlign: "center",
     color: "#a0a0a0",
-    marginTop: theme.spacing(7)
+    marginTop: theme.spacing(7),
   },
   item: {
     marginTop: theme.spacing(4),
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 }));
 
 export default function Footer() {
