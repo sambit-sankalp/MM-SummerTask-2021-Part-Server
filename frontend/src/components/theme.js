@@ -5,9 +5,9 @@ const theme = createMuiTheme({
     h4: {
       fontFamily: '"Montserrat", Open Sans',
       color: "black",
-      fontStyle: "bolder"
-    }
-  }
+      fontStyle: "bolder",
+    },
+  },
 });
 
 export default theme;

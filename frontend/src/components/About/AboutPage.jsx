@@ -12,20 +12,20 @@ import Editorial from "../SideBar/editorials";
 import Query from "../SideBar/query";
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     backgroundColor: "#f3ea41",
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   body: {
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
   },
   side: {
-    marginTop: theme.spacing(9)
-  }
+    marginTop: theme.spacing(9),
+  },
 }));
 
 export default function ArticlePage() {

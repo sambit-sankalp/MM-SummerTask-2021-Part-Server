@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   margin: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   button: {
     "& > *": {
@@ -101,23 +101,20 @@ const EditArticles = () => {
   } = articleUpdate;
 
   useEffect(() => {
-    dispatch(listArticleDetails(articleId));
     if (successUpdate) {
       dispatch({ type: ARTICLE_UPDATE_RESET });
       history.push("/admin/articlelist");
     } else {
-      if (article) {
-        if (!article.title || article._id !== articleId) {
-          dispatch(listArticleDetails(articleId));
-        } else {
-          setValues({
-            title: article.title,
-            imageUrl: article.imageUrl,
-            category: article.category,
-            writer: article.writer,
-            desc: article.desc,
-          });
-        }
+      if (!article || !article.title || article._id !== articleId) {
+        dispatch(listArticleDetails(articleId));
+      } else {
+        setValues({
+          title: article.title,
+          imageUrl: article.imageUrl,
+          category: article.category,
+          writer: article.writer,
+          desc: article.desc,
+        });
       }
     }
   }, [dispatch, articleId, article, history]);
@@ -130,7 +127,7 @@ const EditArticles = () => {
         title: values.title,
         imageUrl: values.imageUrl,
         category: values.category,
-        desc : values.desc,
+        desc: values.desc,
         writer: values.writer,
       })
     );
@@ -176,7 +173,7 @@ const EditArticles = () => {
                           id="outlined-adornment-title"
                           value={values.title}
                           onChange={handleChange("title")}
-                          aria-describedby="outlined-name-helper-text"
+                          aria-describedby="outlined-title-helper-text"
                           inputProps={{
                             "aria-label": "title",
                           }}

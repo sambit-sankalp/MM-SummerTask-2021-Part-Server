@@ -110,10 +110,7 @@ const UserList = () => {
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     <Link to={`/admin/user/${user._id}/edit`}>
-                      <Fab
-                        color="secondary"
-                        aria-label="edit"
-                      >
+                      <Fab color="secondary" aria-label="edit">
                         <EditIcon />
                       </Fab>
                     </Link>

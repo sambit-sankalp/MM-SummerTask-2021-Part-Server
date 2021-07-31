@@ -12,7 +12,7 @@ import {
 } from "../controllers/userControllers.js";
 import { admin, protect } from "../middleware/authMiddleware.js";
 
-router.post("/", registerUser)
+router.post("/", registerUser);
 router.route("/").get(protect, admin, getAllUsers);
 router.post("/signin", authUser);
 router.route("/profile").get(protect, getUser).put(protect, updateUser);

@@ -1,17 +1,16 @@
-import React, { useEffect} from "react";
-import { useDispatch, useSelector} from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { ThemeProvider } from "@material-ui/core/styles";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
 import EditorialCard from "../ReusableCards/EditorialCard";
 import theme from "../theme";
-import { listLatestArticles, listArticles  } from '../../actions/articlesAction';
+import { listLatestArticles, listArticles } from "../../actions/articlesAction";
 import { useParams } from "react-router-dom";
-
 
 function articleCard(trendingArticle) {
   return (
@@ -26,19 +25,18 @@ function articleCard(trendingArticle) {
   );
 }
 
-
 const Latest = () => {
-  const {keyword} = useParams()
+  const { keyword } = useParams();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const articleList = useSelector(state => state.latestArticleList)
-  const {loading, error, latest } = articleList
+  const articleList = useSelector((state) => state.latestArticleList);
+  const { loading, error, latest } = articleList;
 
   useEffect(() => {
-    dispatch(listLatestArticles())
-    dispatch(listArticles(keyword))
-  }, [dispatch, keyword])
+    dispatch(listLatestArticles());
+    dispatch(listArticles(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <React.Fragment>
@@ -49,7 +47,7 @@ const Latest = () => {
             style={{
               fontweight: "bold",
               margin: theme.spacing(2),
-              marginTop: theme.spacing(4)
+              marginTop: theme.spacing(4),
             }}
             component="div"
             align="left"
@@ -57,7 +55,13 @@ const Latest = () => {
           >
             Latest
           </Typography>
-          {loading ? <CircularProgress /> : error ? <h3><Alert severity="error">{error}</Alert></h3>: (
+          {loading ? (
+            <CircularProgress />
+          ) : error ? (
+            <h3>
+              <Alert severity="error">{error}</Alert>
+            </h3>
+          ) : (
             <Grid container spacing={2}>
               {latest.map(articleCard)}
             </Grid>
@@ -66,6 +70,6 @@ const Latest = () => {
       </Container>
     </React.Fragment>
   );
-}
+};
 
-export default Latest
+export default Latest;
