@@ -23,10 +23,10 @@ export default function Events() {
           style={{ color: "#a0a0a0", fontSize: "15px" }}
           align="left"
         >
-          No upcoming events.
+          No upcoming podcasts.
         </Typography>
         <Button size="small" variant="contained" color="primary">
-          See All Events
+          Upcoming Podcasts
         </Button>
       </Container>
     </React.Fragment>

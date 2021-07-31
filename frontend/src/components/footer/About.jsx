@@ -22,10 +22,10 @@ export default function About() {
           paragraph
           align="left"
         >
-          Monday Morning is the student Media Body of National Institute Of
-          Technology Rourkela. Monday Morning covers all the events, issues and
-          activities going on inside the campus. Monday morning also serves as a
-          link between the administration and the students.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+          viverra, odio vitae aliquet ultrices, est nisl efficitur lectus.
+          viverra, odio vitae aliquet ultrices, est nisl efficitur lectus.
+          viverra, odio vitae aliquet ultrices.
         </Typography>
       </Container>
     </React.Fragment>

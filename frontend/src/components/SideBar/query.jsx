@@ -34,7 +34,7 @@ export default function ArticleCard() {
       <CardHeader
         title={
           <Typography gutterBottom variant="h4" component="h4" align="left">
-            Ask a Question
+            Write a Query
           </Typography>
         }
       />
@@ -53,13 +53,13 @@ export default function ArticleCard() {
           >
             If you have any queries and you do not know how to reach the
             authorities - ask a question anonymously and we'll get you your
-            answers. Submit your question by clicking on the button below.
+            answers.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Ask your Question
+          Write a Query
         </Button>
       </CardActions>
     </Card>
