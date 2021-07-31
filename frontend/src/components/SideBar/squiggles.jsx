@@ -15,17 +15,21 @@ export default function Squiggles() {
           align="left"
           variant="h4"
         >
-          Squiggles
+          Headlines
         </Typography>
         <Typography
           paragraph
           style={{ marginTop: theme.spacing(2), fontSize: "15px" }}
           align="left"
         >
-          The Covid-19 pandemic is not over yet! The country is seeing an
-          unprecedented load on the medical infrastructure with a record number
-          of new cases every day. Please follow Covid appropriate behaviour and
-          stay at home as much as possible!
+          -Lorem ipsum dolor sit amet, consectetur
+          -Lorem ipsum dolor sit amet, consectetur
+          -Lorem ipsum dolor sit amet, consectetur
+          -Lorem ipsum dolor sit amet, consectetur
+          -Lorem ipsum dolor sit amet, consectetur
+          -Lorem ipsum dolor sit amet, consectetur
+          -Lorem ipsum dolor sit amet, consectetur
+          -Lorem ipsum dolor sit amet, consectetur
         </Typography>
       </Container>
     </React.Fragment>

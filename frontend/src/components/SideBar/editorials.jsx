@@ -24,14 +24,14 @@ export default function Editorials() {
           paragraph
           align="left"
         >
-          Do you have a story, an opinion about a pressing issue of NITR or
-          beyond, an observation about the society or the scientific community
-          that you want to be on Monday Morning, here's your chance!
+          Do you have a story, an opinion about a pressing issue of your locality or
+          beyond, an observation about the society or the local community
+          that you want to be on Newsee, here's your chance!
         </Typography>
         <Typography paragraph align="left">
           Contribute to the editorial section by mailing us at
           <div style={{ fontSize: "16px", fontWeight: "bold" }}>
-            monday.morning@gmail.com
+            editorials@newsee.com
           </div>
         </Typography>
       </Container>

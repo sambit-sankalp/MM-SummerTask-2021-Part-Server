@@ -10,7 +10,7 @@ function Header() {
       }}
     >
       <img
-        src="https://res.cloudinary.com/sambitsankalp/image/upload/v1627048522/MM%20tasks/Logo_aveyxh.png"
+        src="https://res.cloudinary.com/sambitsankalp/image/upload/v1627730757/MM%20tasks/Newsee_Logo_jcedxf.png"
         alt="Logo"
       />
     </div>
